@@ -154,6 +154,8 @@ async def get_current_user_profile(
         total_sessions = session_result.scalar() or 0
 
         # Token usage
+        from app.models.chat import ChatSession, Message
+
         token_result = await db.execute(
             select(func.coalesce(func.sum(Message.token_count), 0))
             .select_from(User)
